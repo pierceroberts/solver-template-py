@@ -68,13 +68,14 @@ async def solve(problem: BatchAuctionModel, request: Request):  # type: ignore
     logging.debug(f"Received solve request {await request.json()}")
     solver_args = SolverArgs.from_request(request=request, meta=problem.metadata)
 
+    # this dict method is deprecated, use model_dump instead
     batch = BatchAuction.from_dict(problem.dict(), solver_args.instance_name)
 
     print("Received Batch Auction", batch.name)
     print("Parameters Supplied", solver_args)
 
     # 1. Solve BatchAuction: update batch_auction with
-    # batch.solve()
+    batch.solve()
 
     trivial_solution = {
         "orders": {},

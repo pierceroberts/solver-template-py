@@ -8,7 +8,7 @@ import logging
 from decimal import Decimal
 from typing import Any, Optional
 
-from src.models.order import Order, OrdersSerializedType
+from src.models.order import Order, OrderMatchType, OrdersSerializedType
 from src.models.token import (
     Token,
     TokenInfo,
@@ -154,10 +154,13 @@ class BatchAuction:
 
     def solve(self) -> None:
         """Solve Batch"""
+        
+        for order_i in self.orders:
+            for order_j in self.orders:
+                if order_i.match_type(order_j) == OrderMatchType.BOTH_FILLED:
+                    print("moo")
+                    break
 
-    #################################
-    #  SOLUTION PROCESSING METHODS  #
-    #################################
 
     def __str__(self) -> str:
         """Print batch auction data.
