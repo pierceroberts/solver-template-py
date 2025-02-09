@@ -159,7 +159,15 @@ class BatchAuction:
             for order_j in self.orders:
                 if order_i.match_type(order_j) == OrderMatchType.BOTH_FILLED:
                     print("moo")
-                    break
+                    order_i.execute(
+                        buy_amount_value=order_j.sell_amount,
+                        sell_amount_value=order_j.buy_amount,
+                    )
+                    order_j.execute(
+                        buy_amount_value=order_i.sell_amount,
+                        sell_amount_value=order_i.buy_amount
+                    )
+                    
 
 
     def __str__(self) -> str:
